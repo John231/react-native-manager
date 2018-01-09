@@ -9,8 +9,9 @@ class EmployeeCreate extends Component {
   onButtonPress() {
     const { name, phone, shift } = this.props;
 
-    // If no value chosen in picker, default to monday - could set value in componentWillMount() instead
-    employeeCreate({ name, phone, shift: shift || "Monday" });
+    // If no value chosen in picker, default to monday
+    //could set value in componentWillMount() instead
+    this.props.employeeCreate({ name, phone, shift: shift || "Monday" });
   }
 
   render() {
@@ -27,6 +28,7 @@ class EmployeeCreate extends Component {
             }
           />
         </CardSection>
+
         <CardSection>
           <Input
             label="Phone"
@@ -37,13 +39,14 @@ class EmployeeCreate extends Component {
             }
           />
         </CardSection>
+
         <CardSection style={{ flexDirection: "column" }}>
           <Text style={styles.pickerTextStyle}>{"Shift"}</Text>
           <Picker
             style={{ flex: 1 }}
             selectedValue={shift}
             onValueChange={value =>
-              this.props.employeeUpdate({ prop: shift, value })
+              this.props.employeeUpdate({ prop: "shift", value })
             }
           >
             <Picker.Item label="Monday" value="Monday" />
