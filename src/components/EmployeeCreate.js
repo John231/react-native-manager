@@ -8,7 +8,9 @@ import { employeeUpdate, employeeCreate } from "../actions";
 class EmployeeCreate extends Component {
   onButtonPress() {
     const { name, phone, shift } = this.props;
-    employeeCreate({ name, phone, shift });
+
+    // If no value chosen in picker, default to monday - could set value in componentWillMount() instead
+    employeeCreate({ name, phone, shift: shift || "Monday" });
   }
 
   render() {
