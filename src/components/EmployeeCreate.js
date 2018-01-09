@@ -15,6 +15,7 @@ class EmployeeCreate extends Component {
   }
 
   render() {
+    console.log(this.props.employee);
     const { name, phone, shift } = this.props;
     return (
       <Card>
