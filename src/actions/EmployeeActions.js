@@ -6,3 +6,7 @@ export const employeeUpdate = ({ prop, value }) => {
     payload: { prop, value }
   };
 };
+
+export const employeeCreate = ({ name, phone, shift }) => {
+  console.log("Name: %s, Tel: %s, Shift: %s ", name, phone, shift);
+};
