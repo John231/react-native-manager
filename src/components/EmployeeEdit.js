@@ -4,10 +4,12 @@ import _ from "lodash";
 import communications from "react-native-communications";
 
 import EmployeeForm from "./EmployeeForm";
-import { Card, CardSection, Button } from "./common";
+import { Card, CardSection, Button, Confirm } from "./common";
 import { employeeUpdate, employeeSave } from "../actions";
 
 class EmployeeEdit extends Component {
+  // state for component level state - show modal is not neccesary at application level state
+  state = { showModal: false };
   componentWillMount() {
     //iterate over employee prop and update reducer
     _.each(this.props.employee, (value, prop) => {
@@ -30,20 +32,45 @@ class EmployeeEdit extends Component {
     communications.text(phone, `Your upcoming shift is on ${shift}`);
   }
 
+  onAccept() {}
+
+  onDecline() {
+    this.setState({ showModal: false });
+  }
+
   render() {
     return (
       <Card>
         <EmployeeForm />
+
         <CardSection>
           <Button onPress={this.onButtonPress.bind(this)}>
             {"Save Changes"}
           </Button>
         </CardSection>
+
         <CardSection>
           <Button onPress={this.onTextPress.bind(this)}>
             {"Text Schedule"}
           </Button>
         </CardSection>
+
+        <CardSection>
+          <Button
+            onPress={() => {
+              this.setState({ showModal: !this.state.showModal });
+            }}
+          >
+            {"Fire employee"}
+          </Button>
+        </CardSection>
+        <Confirm
+          visible={this.state.showModal}
+          onAccept={this.onAccept.bind(this)}
+          onDecline={this.onDecline.bind(this)}
+        >
+          {"Are you sure you wish to delete this employee?"}
+        </Confirm>
       </Card>
     );
   }
