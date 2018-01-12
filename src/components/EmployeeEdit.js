@@ -5,7 +5,7 @@ import communications from "react-native-communications";
 
 import EmployeeForm from "./EmployeeForm";
 import { Card, CardSection, Button, Confirm } from "./common";
-import { employeeUpdate, employeeSave } from "../actions";
+import { employeeUpdate, employeeSave, employeeDelete } from "../actions";
 
 class EmployeeEdit extends Component {
   // state for component level state - show modal is not neccesary at application level state
@@ -32,7 +32,10 @@ class EmployeeEdit extends Component {
     communications.text(phone, `Your upcoming shift is on ${shift}`);
   }
 
-  onAccept() {}
+  onAccept() {
+    const { uid } = this.props.employee;
+    this.props.employeeDelete({ uid });
+  }
 
   onDecline() {
     this.setState({ showModal: false });
@@ -81,6 +84,8 @@ const mapStateToProps = state => {
   return { name, phone, shift };
 };
 
-export default connect(mapStateToProps, { employeeUpdate, employeeSave })(
-  EmployeeEdit
-);
+export default connect(mapStateToProps, {
+  employeeUpdate,
+  employeeSave,
+  employeeDelete
+})(EmployeeEdit);
